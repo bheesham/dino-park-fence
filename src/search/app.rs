@@ -45,7 +45,7 @@ pub fn search_app(settings: &Search) -> impl HttpServiceFactory {
     // https://docs.rs/reqwest/latest/reqwest/struct.Client.html#panics
     let client = Client::new();
     web::scope("/search")
-        .data(client)
-        .data(settings.clone())
+        .app_data(Data::new(client))
+        .app_data(Data::new(settings.clone()))
         .service(web::resource("/simple/").route(web::get().to(handle_simple)))
 }

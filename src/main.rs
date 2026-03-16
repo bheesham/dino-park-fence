@@ -22,6 +22,7 @@ use crate::session::app::session_app;
 
 use actix_web::middleware::Logger;
 use actix_web::web;
+use actix_web::web::Data;
 use actix_web::App;
 use actix_web::HttpServer;
 use cis_client::CisClient;
@@ -53,7 +54,7 @@ async fn main() -> std::io::Result<()> {
         let scope_middleware = ScopeAndUserAuth::new(provider.clone()).public();
         App::new()
             .wrap(Logger::default().exclude("/healthz"))
-            .data(m.clone())
+            .app_data(Data::new(m.clone()))
             .service(
                 web::scope("/api/v4/")
                     .wrap(scope_middleware)

@@ -74,8 +74,8 @@ pub fn orgchart_app(settings: &Orgchart) -> impl HttpServiceFactory {
     // https://docs.rs/reqwest/latest/reqwest/struct.Client.html#panics
     let client = Client::new();
     web::scope("/orgchart")
-        .data(settings.clone())
-        .data(client)
+        .app_data(Data::new(settings.clone()))
+        .app_data(Data::new(client))
         .service(web::resource("").route(web::get().to(handle_full)))
         .service(web::resource("/related/{username}").route(web::get().to(handle_related)))
         .service(web::resource("/trace/{username}").route(web::get().to(handle_trace)))
