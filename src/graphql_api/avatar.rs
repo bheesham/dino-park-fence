@@ -4,13 +4,6 @@ use failure::Error;
 use reqwest::Client;
 
 #[derive(Serialize)]
-struct UploadRequest<'a> {
-    data_uri: &'a str,
-    display: &'a Display,
-    old_url: Option<&'a str>,
-}
-
-#[derive(Serialize)]
 struct SaveRequest<'a> {
     intermediate: &'a str,
     display: &'a Display,

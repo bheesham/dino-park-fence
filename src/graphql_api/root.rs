@@ -24,7 +24,6 @@ And only contain lowercase letters from a-z, digits from 0-9, underscore or hyph
 
 pub struct Query<T: AsyncCisClientTrait> {
     pub cis_client: T,
-    pub dinopark_settings: DinoParkServices,
 }
 
 async fn get_profile(
