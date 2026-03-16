@@ -234,6 +234,7 @@ version = "2.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "24eda4e2a6e042aa4e55ac438a2ae052d3b5da0ecf83d7411e1a368946925208"
 dependencies = [
+ "actix-macros 0.2.4",
  "futures-core",
  "tokio 1.29.1",
 ]
@@ -1136,9 +1137,9 @@ dependencies = [
 name = "dino-park-fence"
 version = "0.2.9"
 dependencies = [
- "actix-http 2.2.2",
- "actix-rt 1.1.1",
- "actix-web 3.3.3",
+ "actix-http 3.10.0",
+ "actix-rt 2.10.0",
+ "actix-web 4.10.2",
  "biscuit",
  "chrono",
  "cis_client",

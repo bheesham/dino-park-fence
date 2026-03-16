@@ -1,7 +1,7 @@
-use actix_http::cookie::SameSite;
+use actix_web::cookie::SameSite;
 use actix_web::dev::HttpServiceFactory;
 use actix_web::http;
-use actix_web::http::Cookie;
+use actix_web::cookie::Cookie;
 use actix_web::web;
 use actix_web::HttpResponse;
 use actix_web::Responder;
