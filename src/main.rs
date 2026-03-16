@@ -30,10 +30,9 @@ use dino_park_gate::provider::Provider;
 use dino_park_gate::scope::ScopeAndUserAuth;
 use log::info;
 use std::io::Error;
-use std::io::ErrorKind;
 
 fn map_io_err(e: impl Into<failure::Error>) -> Error {
-    Error::new(ErrorKind::Other, e.into())
+    Error::other(e.into())
 }
 
 #[actix_rt::main]
