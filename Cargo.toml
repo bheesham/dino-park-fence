@@ -31,7 +31,7 @@ reqwest = { version = "0.10", features = ["json"] }
 chrono = "0.4.38"
 biscuit = "0.5"
 percent-encoding = "2.1"
-config = "0.10"
+config = "0.12"
 failure = "0.1"
 url = "2.1"
 prometheus = { version = "0.11", default-features = false }
