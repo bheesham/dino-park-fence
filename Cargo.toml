@@ -19,7 +19,7 @@ actix-web = "4.10.2"
 actix-rt = "2.10.0"
 actix-http = "3.10.0"
 juniper = "0.15"
-juniper_actix = "0.2"
+juniper_actix = "0.4"
 
 futures = "0.3"
 log = "0.4"
@@ -36,8 +36,6 @@ failure = "0.1"
 url = "2.1"
 prometheus = { version = "0.11", default-features = false }
 time = "0.2"
-# juniper_codegen breaks with syn 1.0.60 :/
-syn = "= 1.0.59"
 
 [dev-dependencies]
 tokio = { version = "0.3", features = ["full"] }
