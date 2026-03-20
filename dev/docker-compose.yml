@@ -1,0 +1,14 @@
+# This is used for local development only.
+
+services:
+  fence:
+    image: dino-park-fence:development
+    build:
+      context: ../
+      dockerfile: Dockerfile.local
+    environment:
+      DPP_SETTINGS: /root/.settings
+    volumes:
+    - ../dev/settings.json:/root/.settings.json
+    ports:
+    - 127.0.0.1:8081:8081

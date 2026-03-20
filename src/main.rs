@@ -22,6 +22,7 @@ use crate::session::app::session_app;
 
 use actix_web::middleware::Logger;
 use actix_web::web;
+use actix_web::web::Data;
 use actix_web::App;
 use actix_web::HttpServer;
 use cis_client::CisClient;
@@ -29,10 +30,9 @@ use dino_park_gate::provider::Provider;
 use dino_park_gate::scope::ScopeAndUserAuth;
 use log::info;
 use std::io::Error;
-use std::io::ErrorKind;
 
 fn map_io_err(e: impl Into<failure::Error>) -> Error {
-    Error::new(ErrorKind::Other, e.into())
+    Error::other(e.into())
 }
 
 #[actix_rt::main]
@@ -53,7 +53,7 @@ async fn main() -> std::io::Result<()> {
         let scope_middleware = ScopeAndUserAuth::new(provider.clone()).public();
         App::new()
             .wrap(Logger::default().exclude("/healthz"))
-            .data(m.clone())
+            .app_data(Data::new(m.clone()))
             .service(
                 web::scope("/api/v4/")
                     .wrap(scope_middleware)

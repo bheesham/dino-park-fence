@@ -1,7 +1,6 @@
 use crate::error::ApiError;
 use crate::proxy::proxy;
 use crate::settings::Search;
-use actix_web::client::Client;
 use actix_web::dev::HttpServiceFactory;
 use actix_web::web;
 use actix_web::web::Data;
@@ -9,6 +8,7 @@ use actix_web::web::Query;
 use actix_web::HttpResponse;
 use dino_park_gate::scope::ScopeAndUser;
 use dino_park_guard::guard;
+use reqwest::Client;
 use url::Url;
 
 #[derive(Deserialize)]
@@ -41,9 +41,11 @@ async fn handle_simple(
 }
 
 pub fn search_app(settings: &Search) -> impl HttpServiceFactory {
-    let client = Client::default();
+    // SAFETY: this panics.
+    // https://docs.rs/reqwest/latest/reqwest/struct.Client.html#panics
+    let client = Client::new();
     web::scope("/search")
-        .data(client)
-        .data(settings.clone())
+        .app_data(Data::new(client))
+        .app_data(Data::new(settings.clone()))
         .service(web::resource("/simple/").route(web::get().to(handle_simple)))
 }

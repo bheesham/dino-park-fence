@@ -1,7 +1,6 @@
 use crate::error::ApiError;
 use crate::proxy::proxy;
 use crate::settings::Orgchart;
-use actix_web::client::Client;
 use actix_web::dev::HttpServiceFactory;
 use actix_web::web;
 use actix_web::web::Data;
@@ -11,6 +10,7 @@ use dino_park_guard::guard;
 use percent_encoding::utf8_percent_encode;
 use percent_encoding::AsciiSet;
 use percent_encoding::CONTROLS;
+use reqwest::Client;
 
 pub const USERINFO_ENCODE_SET: &AsciiSet = &CONTROLS
     .add(b' ')
@@ -70,10 +70,12 @@ async fn handle_related(
 }
 
 pub fn orgchart_app(settings: &Orgchart) -> impl HttpServiceFactory {
-    let client = Client::default();
+    // SAFETY: this panics.
+    // https://docs.rs/reqwest/latest/reqwest/struct.Client.html#panics
+    let client = Client::new();
     web::scope("/orgchart")
-        .data(settings.clone())
-        .data(client)
+        .app_data(Data::new(settings.clone()))
+        .app_data(Data::new(client))
         .service(web::resource("").route(web::get().to(handle_full)))
         .service(web::resource("/related/{username}").route(web::get().to(handle_related)))
         .service(web::resource("/trace/{username}").route(web::get().to(handle_trace)))

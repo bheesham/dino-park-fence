@@ -1,11 +1,9 @@
-use actix_http::cookie::SameSite;
+use actix_web::cookie::{time::Duration, Cookie, SameSite};
 use actix_web::dev::HttpServiceFactory;
 use actix_web::http;
-use actix_web::http::Cookie;
 use actix_web::web;
 use actix_web::HttpResponse;
 use actix_web::Responder;
-use time::Duration;
 
 const KEEP_LOGGED_IN_COOKIE_NAME: &str = "pmo-kli";
 const LOGIN_PATH: &str = "/";
@@ -42,7 +40,7 @@ fn set_cookie_and_redirect(
                 .max_age(FIVE_YEARS_IN_SECS)
                 .finish(),
         )
-        .header(http::header::LOCATION, location)
+        .append_header((http::header::LOCATION, location))
         .finish()
 }
 

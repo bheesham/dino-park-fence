@@ -1,6 +1,6 @@
 [package]
 name = "dino-park-fence"
-version = "0.2.9"
+version = "0.2.10"
 authors = ["Florian Merz <me@fiji-flo.de>"]
 edition = "2018"
 
@@ -9,33 +9,33 @@ default = []
 localuserscope = ["dino_park_gate/localuserscope"]
 
 [dependencies]
-cis_client = { git = "https://github.com/mozilla-iam/cis_client-rust", tag = "0.8.1", version = "0.8.1", features = ["sync"]}
-cis_profile = { git = "https://github.com/mozilla-iam/cis_profile-rust", tag = "0.5.1", version = "0.5.1", features = ["aws", "vendored", "graphql"] }
-dino_park_gate = { git = "https://github.com/mozilla-iam/dino-park-gate", tag = "0.8.7", version = "0.8.7" }
-dino_park_guard = { git = "https://github.com/mozilla-iam/dino-park-guard", tag = "0.3.5", version = "0.3.5" }
-dino_park_trust = { git = "https://github.com/mozilla-iam/dino-park-trust", tag = "0.0.8", version = "0.0.8" }
-actix-web = "3"
-actix-rt = "1"
-actix-http= "2"
+cis_client = { git = "https://github.com/mozilla-iam/cis_client-rust", tag = "0.9.1", version = "0.9.1", features = ["sync"]}
+cis_profile = { git = "https://github.com/mozilla-iam/cis_profile-rust", tag = "0.6.2", version = "0.6.2", features = ["aws", "vendored", "graphql"] }
+dino_park_gate = { git = "https://github.com/mozilla-iam/dino-park-gate", tag = "0.10.8", version = "0.10.8" }
+dino_park_guard = { git = "https://github.com/mozilla-iam/dino-park-guard", tag = "0.5.7", version = "0.5.7" }
+dino_park_trust = { git = "https://github.com/mozilla-iam/dino-park-trust", tag = "0.1.1", version = "0.1.1" }
+
+actix-web = "4.10.2"
+actix-rt = "2.10.0"
+actix-http = "3.10.0"
 juniper = "0.15"
-juniper_actix = "0.2"
+juniper_actix = "0.4"
+
 futures = "0.3"
 log = "0.4"
 env_logger = "0.8"
 serde = "1.0.80"
 serde_json = "1.0.32"
 serde_derive = "1.0.80"
-reqwest = { version = "0.10", features = ["json"] }
-chrono = "0.4"
+reqwest = { version = "0.11", features = ["json"] }
+chrono = "0.4.38"
 biscuit = "0.5"
 percent-encoding = "2.1"
-config = "0.10"
+config = "0.12"
 failure = "0.1"
 url = "2.1"
 prometheus = { version = "0.11", default-features = false }
 time = "0.2"
-# juniper_codegen breaks with syn 1.0.60 :/
-syn = "= 1.0.59"
 
 [dev-dependencies]
-tokio = { version = "0.3", features = ["full"] }
+tokio = { version = "1", features = ["full"] }

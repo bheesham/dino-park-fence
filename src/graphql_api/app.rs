@@ -10,7 +10,6 @@ use cis_client::AsyncCisClientTrait;
 use dino_park_gate::scope::ScopeAndUser;
 use dino_park_guard::guard;
 use juniper::http::graphiql::graphiql_source;
-use juniper::http::GraphQLRequest;
 use juniper_actix::graphql_handler;
 use log::info;
 use std::sync::Arc;
@@ -19,9 +18,6 @@ use std::sync::Arc;
 pub struct GraphQlState<T: AsyncCisClientTrait + Send + Sync + 'static> {
     schema: Arc<Schema<T>>,
 }
-
-#[derive(Deserialize, Debug, Clone)]
-pub struct GraphQlData(GraphQLRequest);
 
 #[guard(Staff)]
 async fn graphiql() -> Result<HttpResponse, ApiError> {
@@ -56,7 +52,6 @@ pub fn graphql_app<T: AsyncCisClientTrait + Clone + Send + Sync + 'static>(
     let schema = Schema::new(
         Query {
             cis_client: cis_client.clone(),
-            dinopark_settings: dinopark_settings.clone(),
         },
         Mutation {
             cis_client,
@@ -66,10 +61,10 @@ pub fn graphql_app<T: AsyncCisClientTrait + Clone + Send + Sync + 'static>(
     );
 
     web::scope("/graphql")
-        .data(GraphQlState {
+        .app_data(Data::new(GraphQlState {
             schema: Arc::new(schema),
-        })
-        .data(web::JsonConfig::default().limit(1_048_576))
+        }))
+        .app_data(Data::new(web::JsonConfig::default().limit(1_048_576)))
         .service(web::resource("").route(web::post().to(graphql::<T>)))
         .service(web::resource("/graphiql").route(web::get().to(graphiql)))
 }
