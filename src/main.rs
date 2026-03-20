@@ -55,7 +55,7 @@ async fn main() -> std::io::Result<()> {
             .wrap(Logger::default().exclude("/healthz"))
             .app_data(Data::new(m.clone()))
             .service(
-                web::scope("/api/v4/")
+                web::scope("/api/v4")
                     .wrap(scope_middleware)
                     .service(graphql_app(cis_client.clone(), &dino_park_settings))
                     .service(search_app(&dino_park_settings.search))
