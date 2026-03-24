@@ -7,7 +7,7 @@ services:
       context: ../
       dockerfile: Dockerfile.local
     environment:
-      DPP_SETTINGS: /root/.settings
+      DPF_SETTINGS: /root/.settings.json
     volumes:
     - ../dev/settings.json:/root/.settings.json
     ports:
