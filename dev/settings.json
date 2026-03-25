@@ -33,7 +33,7 @@
       "internal_update_enabled": false
     },
     "fossil": {
-      "upload_endpoint": "https://fossil:8083/avatar/internal/"
+      "upload_endpoint": "https://fossil:8083/internal/"
     },
     "search": {
       "simple_endpoint": "https://search:8889/search/simple/"
